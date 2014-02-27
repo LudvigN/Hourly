@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move package &apos;com.fima.cardsui.views&apos; to &apos;Hourly/src&apos;&#x0D;&#x0A;- Original project: &apos;CardsUIExample&apos;&#x0D;&#x0A;- Destination element: &apos;Hourly/src&apos;&#x0D;&#x0A;- Original element: &apos;CardsUIExample/src/com.fima.cardsui.views&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=Hourly/src" element1="/src&lt;com.fima.cardsui.views" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1392135963281" version="1.0"/>
+</session>
