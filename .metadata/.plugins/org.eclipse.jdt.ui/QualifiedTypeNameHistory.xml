@@ -25,4 +25,5 @@
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
 <fullyQualifiedTypeName name="se.ludvig.hourly.R.layout"/>
+<fullyQualifiedTypeName name="android.database.sqlite.SQLiteOpenHelper"/>
 </qualifiedTypeNameHistroy>

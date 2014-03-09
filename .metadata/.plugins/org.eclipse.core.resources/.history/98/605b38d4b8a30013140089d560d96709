@@ -1,0 +1,88 @@
+
+public class Consolle {
+	public static final String DATABASE_VERSION = "1";
+	private static final String DATABASE_NAME ="hourlyDatabase.db";
+	
+	private static final String TABLE_EMPLOYER = "Employer";
+	private static final String TABLE_SALERY = "Salery";
+	private static final String TABLE_WORKEVENT = "WorkEvent";
+	private static final String TABLE_EXTRA_PAYMENT = "OB";
+	
+	//TABLE EMPLOYERs columns
+	private static final String EMPLOYER_ID = "eId";
+	private static final String EPLOYER_NAME ="employerName";
+	private static final String EMPLOYER_EMAIL ="employerEmail";
+	private static final String EMPLOYER_PHONENUMBER ="employerPhoneNumber";
+	private static final String EMPLOYER_FOREIGN_KEY_SALERY ="salery";
+	private static final String EMPLOYER_FOREIGN_KEY_OB = "ob";
+	
+	//TABLE SALERYs columns
+	private static final String SALERY_ID = "sId";
+	private static final String SALERY_AMOUNT = "sAmount";
+	private static final String SALERY_TAX ="taxPercent";
+	
+	//TABLE WORKEVENTs columns
+	private static final String WORKEVENT_ID = "wId";
+	private static final String WORKEVENT_FOREIGN_KEY_EMPLOYER = "employer";
+	private static final String WORKEVENT_START_TIME = "startTime";
+	private static final String WORKEVENT_END_TIME = "endTime";
+	private static final String WORKEVENT_DURATION ="duration";
+	
+	//TABLE OBs columns
+	private static final String OB_ID = "oId";
+	private static final String START_TIME = "startTime";
+	private static final String END_TIME = "endTime";
+	private static final String ONLY_RED_DAYS ="onlyRedDays";
+
+	
+	private static final String EMPLOYER_CREATE = "create table " +
+		      TABLE_EMPLOYER + " (" + 
+		      EMPLOYER_ID +
+		      " integer primary key autoincrement, " +
+		      EPLOYER_NAME + " text not null, " +
+		      EMPLOYER_EMAIL + " text, " + 
+		      EMPLOYER_PHONENUMBER + " integer, " + 
+		      EMPLOYER_FOREIGN_KEY_SALERY + " integer, " + 
+		      EMPLOYER_FOREIGN_KEY_OB + " integer, " + 
+		      "FOREIGN KEY (" + EMPLOYER_FOREIGN_KEY_SALERY+") REFERENCES "+ TABLE_SALERY +"("+SALERY_ID+"), " + 
+		      "FOREIGN KEY (" + EMPLOYER_FOREIGN_KEY_OB + ") REFERENCES "+ TABLE_EXTRA_PAYMENT +"("+OB_ID+"));";
+	
+	private static final String SALERY_CREATE = "create table " +
+		      TABLE_SALERY + " (" + SALERY_ID +
+		      " integer primary key autoincrement, " +
+		      SALERY_AMOUNT + " integer not null, " +
+		      SALERY_TAX + " float );";
+	
+	private static final String WORKEVENT_CREATE = "create table " +
+		      TABLE_WORKEVENT + " (" +
+		      WORKEVENT_ID +
+		      " integer primary key autoincrement, " +
+		      WORKEVENT_START_TIME + " float not null, " +
+		      WORKEVENT_END_TIME + " float not null, "+ 
+		      WORKEVENT_DURATION +" float not null, " + 
+		      WORKEVENT_FOREIGN_KEY_EMPLOYER +" integer, " +
+		      " FOREIGN KEY "+"("+WORKEVENT_FOREIGN_KEY_EMPLOYER+") REFERENCES "+ TABLE_EMPLOYER +"("+EMPLOYER_ID+"));";
+	
+	private static final String OB_CREATE = "create table " +
+		      TABLE_EXTRA_PAYMENT + " (" + OB_ID +
+		      " integer primary key autoincrement, " +
+		      OB_AMOUNT + " float not null, " +
+		      OB_START_TIME + " float, "+OB_END_TIME+" float, "+ OB_ONLY_RED_DAYS + "integer);";
+	
+	public static void main(String args[])
+	{
+		new Consolle();
+	}
+	public Consolle()
+	{
+		System.out.println(EMPLOYER_CREATE);
+		System.out.println();
+		System.out.println(SALERY_CREATE);
+		System.out.println();
+		System.out.println(WORKEVENT_CREATE);
+		System.out.println(OB_CREATE);
+	
+	}
+	}
+
+

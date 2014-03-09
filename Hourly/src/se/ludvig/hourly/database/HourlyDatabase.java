@@ -15,12 +15,35 @@ public class HourlyDatabase {
 	  
 	  //The name and column index of each column in your database.
 	  //These should be descriptive.
-	  public static final String KEY_GOLD_HOARD_NAME_COLUMN =  
-	   "GOLD_HOARD_NAME_COLUMN";
-	  public static final String KEY_GOLD_HOARD_ACCESSIBLE_COLUMN =
-	   "OLD_HOARD_ACCESSIBLE_COLUMN";
-	  public static final String KEY_GOLD_HOARDED_COLUMN =
-	   "GOLD_HOARDED_COLUMN";
+	  
+	  
+		
+		//TABLE EMPLOYERs columns
+		public static final String EMPLOYER_ID = "eId";
+		public static final String EPLOYER_NAME ="employerName";
+		public static final String EMPLOYER_EMAIL ="employerEmail";
+		public static final String EMPLOYER_PHONENUMBER ="employerPhoneNumber";
+		public static final String EMPLOYER_FOREIGN_KEY_SALERY ="salery";
+		public static final String EMPLOYER_FOREIGN_KEY_OB = "ob";
+		
+		//TABLE SALERYs columns
+		public static final String SALERY_ID = "sId";
+		public static final String SALERY_AMOUNT = "sAmount";
+		public static final String SALERY_TAX ="taxPercent";
+		
+		//TABLE WORKEVENTs columns
+		public static final String WORKEVENT_ID = "wId";
+		public static final String WORKEVENT_FOREIGN_KEY_EMPLOYER = "employer";
+		public static final String WORKEVENT_START_TIME = "startTime";
+		public static final String WORKEVENT_END_TIME = "endTime";
+		public static final String WORKEVENT_DURATION ="duration";
+		
+		//TABLE OBs columns
+		public static final String OB_ID = "oId";
+		public static final String OB_AMOUNT = "amount";
+		public static final String OB_START_TIME = "startTime";
+		public static final String OB_END_TIME = "endTime";
+		public static final String OB_ONLY_RED_DAYS ="onlyRedDays";
 	  //TODO: Create public field for each column in your table.
 	  /***/
 
@@ -97,7 +120,7 @@ public class HourlyDatabase {
 	    return averageHoard;
 	  }
 	  
-	  public void addNewHoard(String hoardName, float hoardValue, boolean hoardAccessible) {
+	  public void addEmployer(String eName, String eEmail, String ePhone, ) {
 	    /**
 	     * Listing 8-5: Inserting new rows into a database
 	     */
@@ -105,14 +128,14 @@ public class HourlyDatabase {
 	    ContentValues newValues = new ContentValues();
 	  
 	    // Assign values for each row.
-	    newValues.put(KEY_GOLD_HOARD_NAME_COLUMN, hoardName);
-	    newValues.put(KEY_GOLD_HOARDED_COLUMN, hoardValue);
-	    newValues.put(KEY_GOLD_HOARD_ACCESSIBLE_COLUMN, hoardAccessible);
-	    // [ ... Repeat for each column / value pair ... ]
+	    newValues.put(EPLOYER_NAME, eName);
+	    newValues.put(EMPLOYER_EMAIL, eEmail);
+	    newValues.put(EMPLOYER_PHONENUMBER, ePhone);
+	    // [ ... Repeat for each column / value pair ... ]z
 	  
 	    // Insert the row into your table
 	    SQLiteDatabase db = dbHelper.getWritableDatabase();
-	    db.insert(dbHelper.DATABASE_TABLE, null, newValues); 
+	    db.insert(dbHelper.TABLE_EMPLOYER, null, newValues); 
 	  }
 	  
 	  public void updateHoardValue(int hoardId, float newHoardValue) {
@@ -156,55 +179,48 @@ public class HourlyDatabase {
 	   */
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
-
-	 
 	public static final String DATABASE_VERSION = "1";
-	private static final String DATABASE_NAME ="hourlyDatabase.db";
+	public static final String DATABASE_NAME ="hourlyDatabase.db";
 	
-	private static final String TABLE_EMPLOYER = "Employer";
-	private static final String TABLE_SALERY = "Salery";
-	private static final String TABLE_WORKEVENT = "WorkEvent";
-	private static final String TABLE_EXTRA_PAYMENT = "OB";
-	
-	//TABLE EMPLOYERs columns
-	private static final String EMPLOYER_ID = "eId";
-	private static final String EPLOYER_NAME ="employerName";
-	private static final String EMPLOYER_EMAIL ="employerEmail";
-	private static final String EMPLOYER_PHONENUMBER ="employerPhoneNumber";
-	private static final String EMPLOYER_FOREIGN_KEY_SALERY ="salery";
-	private static final String EMPLOYER_FOREIGN_KEY_OB = "ob";
-	
-	//TABLE SALERYs columns
-	private static final String SALERY_ID = "sId";
-	private static final String SALERY_AMOUNT = "sAmount";
-	private static final String SALERY_TAX ="taxPercent";
-	
-	//TABLE WORKEVENTs columns
-	private static final String WORKEVENT_ID = "wId";
-	private static final String WORKEVENT_FOREIGN_KEY_EMPLOYER = "employer";
-	private static final String WORKEVENT_START_TIME = "startTime";
-	private static final String WORKEVENT_END_TIME = "endTime";
-	private static final String WORKEVENT_DURATION ="duration";
-	
-	//TABLE OBs columns
-	private static final String OB_ID = "oId";
-	private static final String START_TIME = "startTime";
-	private static final String END_TIME = "endTime";
-	private static final String ONLY_RED_DAYS ="onlyRedDays";
+	  public static final String TABLE_EMPLOYER = "Employer";
+	  public static final String TABLE_SALERY = "Salery";
+	  public static final String TABLE_WORKEVENT = "WorkEvent";
+	  public static final String TABLE_EXTRA_PAYMENT = "OB";
 
 	
 	private static final String EMPLOYER_CREATE = "create table " +
-		      TABLE_EMPLOYER + " (" + EMPLOYER_ID +
+		      TABLE_EMPLOYER + " (" + 
+		      EMPLOYER_ID +
 		      " integer primary key autoincrement, " +
-		      EMPLOYER_NAME + " text not null, " +
-		      EMPLOYER_EMAIL + " text " +
-		      EMPLOYER_PHONENUMBER + " integer " + "" );";
+		      EPLOYER_NAME + " text not null, " +
+		      EMPLOYER_EMAIL + " text, " + 
+		      EMPLOYER_PHONENUMBER + " integer, " + 
+		      EMPLOYER_FOREIGN_KEY_SALERY + " integer, " + 
+		      EMPLOYER_FOREIGN_KEY_OB + " integer, " + 
+		      "FOREIGN KEY (" + EMPLOYER_FOREIGN_KEY_SALERY+") REFERENCES "+ TABLE_SALERY +"("+SALERY_ID+"), " + 
+		      "FOREIGN KEY (" + EMPLOYER_FOREIGN_KEY_OB + ") REFERENCES "+ TABLE_EXTRA_PAYMENT +"("+OB_ID+"));";
+	
 	private static final String SALERY_CREATE = "create table " +
-		      TABLE_EMPLOYER + " (" + KEY_ID +
+		      TABLE_SALERY + " (" + SALERY_ID +
 		      " integer primary key autoincrement, " +
-		      KEY_GOLD_HOARD_NAME_COLUMN + " text not null, " +
-		      KEY_GOLD_HOARDED_COLUMN + " float, " +
-		      KEY_GOLD_HOARD_ACCESSIBLE_COLUMN + " integer);";
+		      SALERY_AMOUNT + " integer not null, " +
+		      SALERY_TAX + " float );";
+	
+	private static final String WORKEVENT_CREATE = "create table " +
+		      TABLE_WORKEVENT + " (" +
+		      WORKEVENT_ID +
+		      " integer primary key autoincrement, " +
+		      WORKEVENT_START_TIME + " float not null, " +
+		      WORKEVENT_END_TIME + " float not null, "+ 
+		      WORKEVENT_DURATION +" float not null, " + 
+		      WORKEVENT_FOREIGN_KEY_EMPLOYER +" integer, " +
+		      " FOREIGN KEY "+"("+WORKEVENT_FOREIGN_KEY_EMPLOYER+") REFERENCES "+ TABLE_EMPLOYER +"("+EMPLOYER_ID+"));";
+	
+	private static final String OB_CREATE = "create table " +
+		      TABLE_EXTRA_PAYMENT + " (" + OB_ID +
+		      " integer primary key autoincrement, " +
+		      OB_AMOUNT + " float not null, " +
+		      OB_START_TIME + " float, "+OB_END_TIME+" float, "+ OB_ONLY_RED_DAYS + "integer);";
 	
 	public DatabaseHelper(Context context, String name, CursorFactory factory,
 			int version) {
@@ -214,7 +230,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(DATABASE_CREATE);
+		db.execSQL(EMPLOYER_CREATE);
+		db.execSQL(WORKEVENT_CREATE);
+		db.execSQL(SALERY_CREATE);
+		db.execSQL(OB_CREATE);
 		
 	}
 
@@ -224,4 +243,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 	}
 
+}
 }
