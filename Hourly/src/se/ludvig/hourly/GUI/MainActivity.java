@@ -52,10 +52,13 @@ public class MainActivity extends FragmentActivity {
     private void selectItem(int position) {
     	  	
     	Fragment fr = null;
+    	Bundle bundle = new Bundle();
     	FragmentManager fragmentManager = getFragmentManager();
     	switch(position)
     	{
     		case 0:
+    			bundle.putStringArray("employerArray", navDrawerItems);
+    			//fr.setArguments(bundle);
     			fr = new CalendarFragment();
     		case 1:
     			fr = new TimeControlFragment();  			

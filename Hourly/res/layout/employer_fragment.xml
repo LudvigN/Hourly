@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">"
         <TextView 
             android:id="@+id/tvEmployerName"
             android:layout_width="match_parent"
@@ -14,5 +14,5 @@
         <TextView 
             android:id="@+id/tvEmployerSalery"
             android:layout_width="match_parent"
-            android:layout_height="35dp"/>
+            android:layout_height="35dp"/> 
 </LinearLayout>

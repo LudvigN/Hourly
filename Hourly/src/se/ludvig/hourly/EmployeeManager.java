@@ -19,8 +19,8 @@ public class EmployeeManager {
 	}
 	public ArrayList<Employer> getList()
 	{
-		
 		return employers;
 	}
+	
 
 }
