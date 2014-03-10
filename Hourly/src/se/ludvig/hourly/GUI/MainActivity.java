@@ -10,7 +10,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 	
 	private String[] navDrawerItems;
 	private DrawerLayout navDrawerLayout;
@@ -49,6 +48,7 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
+    //On-item selected
     private void selectItem(int position) {
     	  	
     	Fragment fr = null;
@@ -58,8 +58,9 @@ public class MainActivity extends FragmentActivity {
     	{
     		case 0:
     			bundle.putStringArray("employerArray", navDrawerItems);
-    			//fr.setArguments(bundle);
+    			
     			fr = new CalendarFragment();
+    			fr.setArguments(bundle);
     		case 1:
     			fr = new TimeControlFragment();  			
     		case 2:

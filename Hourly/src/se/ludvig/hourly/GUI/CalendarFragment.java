@@ -25,9 +25,11 @@ public class CalendarFragment extends Fragment {
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
+		
 		Toast t = Toast.makeText(getActivity(), "CalendarFragmentLoaded", 2000);
     	t.show();
-		Bundle args = getArguments();
+		
+    	Bundle args = getArguments();
 		events = args.getStringArray("employerArray");
 		
 		CalendarList cAdapter = new CalendarList(getActivity(), events);
@@ -43,6 +45,7 @@ public class CalendarFragment extends Fragment {
                  Toast.makeText(getActivity(), "You Clicked at " + events[+ position] , Toast.LENGTH_SHORT).show();
              }
          });
+		 
 		super.onViewCreated(view, savedInstanceState);
 	}
 
