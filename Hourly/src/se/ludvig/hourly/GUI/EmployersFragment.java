@@ -1,11 +1,15 @@
 package se.ludvig.hourly.GUI;
 
+import java.util.ArrayList;
+
 import se.ludvig.hourly.EmployeeManager;
+import se.ludvig.hourly.Employer;
 import se.ludvig.hourly.R;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,10 +29,21 @@ public class EmployersFragment extends Fragment implements ActionBar.OnNavigatio
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
-		mngr = new EmployeeManager();
+		mngr = new EmployeeManager(getActivity());
 	
-	    
-	  
+
+		EmployeeManager man = new EmployeeManager(getActivity());
+		
+		ArrayList<Employer> listEMp = man.getList();
+		
+		Log.i("Employee Fragment", "count:" + listEMp.size());
+		
+		for(Employer e : listEMp)
+		{
+			Log.i("Employee Fragment", e.propName(null));
+		}
+		
+		
 
 	   // View view = inflater.inflate(R.layout.employer_fragment, container, false);
 		return inflater.inflate(R.layout.employer_fragment, container,false);
@@ -50,7 +65,6 @@ public class EmployersFragment extends Fragment implements ActionBar.OnNavigatio
 		
 		super.onCreateOptionsMenu(menu, inflater);
 		setHasOptionsMenu(true);
-
 	}
 
 
@@ -75,6 +89,8 @@ public class EmployersFragment extends Fragment implements ActionBar.OnNavigatio
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 	
 	 
 

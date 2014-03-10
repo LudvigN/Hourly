@@ -1,23 +1,18 @@
 package se.ludvig.hourly.GUI;
 
 import se.ludvig.hourly.R;
-import se.ludvig.hourly.R.array;
-import se.ludvig.hourly.R.id;
-import se.ludvig.hourly.R.layout;
-import se.ludvig.hourly.R.menu;
 import android.os.Bundle;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 	
@@ -43,32 +38,40 @@ public class MainActivity extends FragmentActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-        	Toast t = Toast.makeText(getApplicationContext(), navDrawerItems[position], 2000);
-        	t.show();
             selectItem(position);
         }
 
     }
+    
     private void selectItem(int position) {
     	  	
+    	
+    	Log.i("Main", "Select item:" + String.valueOf(position));
+    	
     	Fragment fr = null;
     	Bundle bundle = new Bundle();
-    	FragmentManager fragmentManager = getFragmentManager();
+    	FragmentManager fragmentManager = getSupportFragmentManager();
+    	
     	switch(position)
     	{
     		case 0:
     			bundle.putStringArray("employerArray", navDrawerItems);
-    			//fr.setArguments(bundle);
     			fr = new CalendarFragment();
+    			fr.setArguments(bundle);
+    			break;
     		case 1:
-    			fr = new TimeControlFragment();  			
+    			fr = new TimeControlFragment(); 
+    			break;
     		case 2:
     			fr = new EmployersFragment();
+    			break;
     	}
     	
  
-    	fragmentManager.beginTransaction().add(R.id.content_frame, fr).commit();
-
+    	FragmentTransaction ft = fragmentManager.beginTransaction();
+    	ft.replace(R.id.content_frame, fr);
+    	ft.commit();
+    	
     	setTitle(navDrawerItems[position]);
     	mDrawerList.setItemChecked(position, true);
     	navDrawerLayout.closeDrawer(mDrawerList);

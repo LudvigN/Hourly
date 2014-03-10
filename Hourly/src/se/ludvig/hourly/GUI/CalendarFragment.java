@@ -1,9 +1,15 @@
 package se.ludvig.hourly.GUI;
 
+import java.util.ArrayList;
+
+import se.ludvig.hourly.EmployeeManager;
+import se.ludvig.hourly.Employer;
 import se.ludvig.hourly.R;
 import android.app.Activity;
-import android.app.Fragment;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +26,23 @@ public class CalendarFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
-		return inflater.inflate(R.layout.calendar_fragment, container, false);
-	}
-
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.calendar_fragment, container, false);
+		
 		Toast t = Toast.makeText(getActivity(), "CalendarFragmentLoaded", 2000);
     	t.show();
 		Bundle args = getArguments();
 		events = args.getStringArray("employerArray");
 		
+		for(String e : events)
+		{
+			Log.i("Calendar", e);
+		}
+		
 		CalendarList cAdapter = new CalendarList(getActivity(), events);
 		
-		list = (ListView)getView().findViewById(R.id.calendarList);
+		
+		
+		list = (ListView)view.findViewById(R.id.calendarList);
 		
 		list.setAdapter(cAdapter);
 		
@@ -43,7 +53,15 @@ public class CalendarFragment extends Fragment {
                  Toast.makeText(getActivity(), "You Clicked at " + events[+ position] , Toast.LENGTH_SHORT).show();
              }
          });
-		super.onViewCreated(view, savedInstanceState);
+		
+		
+		return view;
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+
+		//super.onViewCreated(view, savedInstanceState);
 	}
 
 	@Override

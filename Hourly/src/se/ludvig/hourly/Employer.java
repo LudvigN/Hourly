@@ -5,6 +5,7 @@ public class Employer {
 	private String name;
 	private String address; 
 	private double hourlySalery;
+	
 	public Employer(String mName, String mAddress, double mSalery)
 	{
 		propName(mName);

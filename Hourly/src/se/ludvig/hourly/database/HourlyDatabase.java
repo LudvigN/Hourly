@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 public class HourlyDatabase {
 	  /**
 	   * Listing 8-1: Skeleton code for contract class constants
@@ -22,7 +23,7 @@ public class HourlyDatabase {
 		
 		//TABLE EMPLOYERs columns
 		public static final String EMPLOYER_ID = "eId";
-		public static final String EPLOYER_NAME ="employerName";
+		public static final String EMPLOYER_NAME ="employerName";
 		public static final String EMPLOYER_EMAIL ="employerEmail";
 		public static final String EMPLOYER_PHONENUMBER ="employerPhoneNumber";
 		public static final String EMPLOYER_FOREIGN_KEY_SALERY ="salery";
@@ -56,58 +57,83 @@ public class HourlyDatabase {
 	  public HourlyDatabase(Context context) {
 	    dbHelper  = new DatabaseHelper(context, DatabaseHelper.DATABASE_NAME, null, 
                 DatabaseHelper.DATABASE_VERSION);
+	    
+	    seed();
 	  }
+	  
+	  
+		private void seed()
+		{
+			addEmployer("IKEA", "info@ikea.se", "0708794568");
+			addEmployer("ICA", "info@ikea.se", "0708794568");
+			addEmployer("LUDVIG", "info@ikea.se", "0708794568");
+			addEmployer("ATEA", "info@ikea.se", "0708794568");
+		}
 	  
 	  // Called when you no longer need access to the database.
 	  public void closeDatabase() {
 	    dbHelper.close();
 	  }
 
-	  private Cursor getEmployer() {
+	  public Cursor getEmployer() {
 	    /**
 	     * Listing 8-3: Querying a database
 	     */
 	    // Specify the result column projection. Return the minimum set
 	    // of columns required to satisfy your requirements.
 	    String[] result_columns = new String[] { 
-	      EMPLOYER_ID, EPLOYER_NAME, EMPLOYER_EMAIL, EMPLOYER_PHONENUMBER, EMPLOYER_FOREIGN_KEY_SALERY, EMPLOYER_FOREIGN_KEY_OB }; 
+	      EMPLOYER_ID, EMPLOYER_NAME, EMPLOYER_EMAIL, EMPLOYER_PHONENUMBER, EMPLOYER_FOREIGN_KEY_SALERY, EMPLOYER_FOREIGN_KEY_OB }; 
 	    
 	    // Specify the where clause that will limit our results.
-	    String where = EMPLOYER_ID + "=" + 1;
-	    
-	    // Replace these with valid SQL statements as necessary.
-	    String whereArgs[] = null;
-	    String groupBy = null;
-	    String having = null;
-	    String order = null;
+	    //String where = EMPLOYER_ID + "=" + 1;
 	    
 	    SQLiteDatabase db = dbHelper.getWritableDatabase();
-	    Cursor cursor = db.query(DatabaseHelper.TABLE_EMPLOYER, 
-	                             result_columns, where,
-	                             whereArgs, groupBy, having, order);
-	    //
+	    
+	    Cursor cursor = db.rawQuery(
+	    		"SELECT * FROM " + DatabaseHelper.TABLE_EMPLOYER + " INNER JOIN " + DatabaseHelper.TABLE_SALERY + " ON " + EMPLOYER_ID + " = " + SALERY_ID, null);
+	    
+	    
 	    return cursor;
 	  }
 	 
 
 	  
 	  public void addEmployer(String eName, String eEmail, String ePhone) {
-	    /**
-	     * Listing 8-5: Inserting new rows into a database
-	     */
+
+	    String query =
+	    		DatabaseHelper.TABLE_EMPLOYER + 
+	    		" JOIN " + 
+	    		DatabaseHelper.TABLE_SALERY + 
+	    		" ON " + 
+	    		EMPLOYER_ID + 
+	    		" = " + 
+	    		SALERY_ID
+	    	;
+	    
+	    
+	    
 	    // Create a new row of values to insert.
 	    ContentValues newValues = new ContentValues();
 	  
+
+	    newValues = new ContentValues();
+	    newValues.put(SALERY_AMOUNT, 999);
+	    newValues.put(SALERY_TAX, 0.3);
+	    
+	    
+	    SQLiteDatabase db = dbHelper.getWritableDatabase();
+	    long id = db.insert(DatabaseHelper.TABLE_SALERY, null, newValues);
+	    
+	    newValues = new ContentValues();
+
 	    // Assign values for each row.
-	    newValues.put(EPLOYER_NAME, eName);
+	    newValues.put(EMPLOYER_NAME, eName);
 	    newValues.put(EMPLOYER_EMAIL, eEmail);
 	    newValues.put(EMPLOYER_PHONENUMBER, ePhone);
+	    newValues.put(EMPLOYER_FOREIGN_KEY_SALERY, id);
+	   
+	    db.insert(DatabaseHelper.TABLE_EMPLOYER, null, newValues);
 	    
-	    // [ ... Repeat for each column / value pair ... ]z
-	  
-	    // Insert the row into your table
-	    SQLiteDatabase db = dbHelper.getWritableDatabase();
-	    db.insert(DatabaseHelper.TABLE_EMPLOYER, null, newValues); 
 	  }
 	  
 	  public void updateEmployer(String eName, String eEmail, String ePhone, int eID) {
@@ -118,7 +144,7 @@ public class HourlyDatabase {
 	    ContentValues updatedValues = new ContentValues();
 	  
 	    // Assign values for each row.
-	    updatedValues.put(EPLOYER_NAME, eName);
+	    updatedValues.put(EMPLOYER_NAME, eName);
 	    updatedValues.put(EMPLOYER_EMAIL, eEmail);
 	    updatedValues.put(EMPLOYER_PHONENUMBER, ePhone);
 	    // [ ... Repeat for each column to update ... ]
@@ -151,10 +177,10 @@ public class HourlyDatabase {
 	  /**
 	   * Listing 8-2: Implementing an SQLite Open Helper
 	   */
-private static class DatabaseHelper extends SQLiteOpenHelper {
+	  private static class DatabaseHelper extends SQLiteOpenHelper {
 	
-	public static final int DATABASE_VERSION = 1;
-	public static final String DATABASE_NAME ="hourlyDatabase.db";
+      public static final int DATABASE_VERSION = 1;
+      public static final String DATABASE_NAME ="hourlyDatabase.db";
 	
 	  public static final String TABLE_EMPLOYER = "Employer";
 	  public static final String TABLE_SALERY = "Salery";
@@ -166,7 +192,7 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 		      TABLE_EMPLOYER + " (" + 
 		      EMPLOYER_ID +
 		      " integer primary key autoincrement, " +
-		      EPLOYER_NAME + " text not null, " +
+		      EMPLOYER_NAME + " text not null, " +
 		      EMPLOYER_EMAIL + " text, " + 
 		      EMPLOYER_PHONENUMBER + " integer, " + 
 		      EMPLOYER_FOREIGN_KEY_SALERY + " integer, " + 
@@ -210,6 +236,9 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 		
 	}
 
+
+
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		
