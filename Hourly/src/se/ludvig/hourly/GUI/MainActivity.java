@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
-    
+
     private void selectItem(int position) {
     	  	
     	

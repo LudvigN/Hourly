@@ -26,11 +26,19 @@ public class CalendarFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
+
 		View view = inflater.inflate(R.layout.calendar_fragment, container, false);
+
+		return inflater.inflate(R.layout.calendar_fragment, container, false);
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
 		
 		Toast t = Toast.makeText(getActivity(), "CalendarFragmentLoaded", 2000);
     	t.show();
-		Bundle args = getArguments();
+		
+    	Bundle args = getArguments();
 		events = args.getStringArray("employerArray");
 		
 		for(String e : events)
@@ -54,15 +62,8 @@ public class CalendarFragment extends Fragment {
              }
          });
 		
-		
-		return view;
 	}
 
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-
-		//super.onViewCreated(view, savedInstanceState);
-	}
 
 	@Override
 	public void onAttach(Activity activity) {

@@ -9,15 +9,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+
 public class HourlyDatabase {
-	  /**
-	   * Listing 8-1: Skeleton code for contract class constants
-	   */
+	
+	
 	  //The index (key) column name for use in where clauses.
 	  public static final String KEY_ID = "_id";
 	  
-	  //The name and column index of each column in your database.
-	  //These should be descriptive.
 	  
 	  
 		
@@ -47,11 +45,10 @@ public class HourlyDatabase {
 		public static final String OB_START_TIME = "startTime";
 		public static final String OB_END_TIME = "endTime";
 		public static final String OB_ONLY_RED_DAYS ="onlyRedDays";
-	  //TODO: Create public field for each column in your table.
-	  /***/
+	  
 
 
-	  // Database open/upgrade helper
+	
 	  private DatabaseHelper dbHelper;
 
 	  public HourlyDatabase(Context context) {
@@ -61,6 +58,7 @@ public class HourlyDatabase {
 	    seed();
 	  }
 	  
+
 	  
 		private void seed()
 		{
@@ -71,16 +69,17 @@ public class HourlyDatabase {
 		}
 	  
 	  // Called when you no longer need access to the database.
+
+	
+
 	  public void closeDatabase() {
 	    dbHelper.close();
 	  }
 
+
+	 
 	  public Cursor getEmployer() {
-	    /**
-	     * Listing 8-3: Querying a database
-	     */
-	    // Specify the result column projection. Return the minimum set
-	    // of columns required to satisfy your requirements.
+	   
 	    String[] result_columns = new String[] { 
 	      EMPLOYER_ID, EMPLOYER_NAME, EMPLOYER_EMAIL, EMPLOYER_PHONENUMBER, EMPLOYER_FOREIGN_KEY_SALERY, EMPLOYER_FOREIGN_KEY_OB }; 
 	    
@@ -91,8 +90,8 @@ public class HourlyDatabase {
 	    
 	    Cursor cursor = db.rawQuery(
 	    		"SELECT * FROM " + DatabaseHelper.TABLE_EMPLOYER + " INNER JOIN " + DatabaseHelper.TABLE_SALERY + " ON " + EMPLOYER_ID + " = " + SALERY_ID, null);
-	    
-	    
+	    	    
+
 	    return cursor;
 	  }
 	 
@@ -100,17 +99,6 @@ public class HourlyDatabase {
 	  
 	  public void addEmployer(String eName, String eEmail, String ePhone) {
 
-	    String query =
-	    		DatabaseHelper.TABLE_EMPLOYER + 
-	    		" JOIN " + 
-	    		DatabaseHelper.TABLE_SALERY + 
-	    		" ON " + 
-	    		EMPLOYER_ID + 
-	    		" = " + 
-	    		SALERY_ID
-	    	;
-	    
-	    
 	    
 	    // Create a new row of values to insert.
 	    ContentValues newValues = new ContentValues();
@@ -137,17 +125,14 @@ public class HourlyDatabase {
 	  }
 	  
 	  public void updateEmployer(String eName, String eEmail, String ePhone, int eID) {
-	    /**
-	     * Listing 8-6: Updating a database row
-	     */
-	    // Create the updated row Content Values.
+	 
 	    ContentValues updatedValues = new ContentValues();
 	  
 	    // Assign values for each row.
 	    updatedValues.put(EMPLOYER_NAME, eName);
 	    updatedValues.put(EMPLOYER_EMAIL, eEmail);
 	    updatedValues.put(EMPLOYER_PHONENUMBER, ePhone);
-	    // [ ... Repeat for each column to update ... ]
+	
 	  
 	    // Specify a where clause the defines which rows should be
 	    // updated. Specify where arguments as necessary.
@@ -161,9 +146,7 @@ public class HourlyDatabase {
 	  }
 	  
 	  public void deleteEmptyHoards() {
-	    /**
-	     * Listing 8-7: Deleting a database row
-	     */
+	   
 	    // Specify a where clause that determines which row(s) to delete.
 	    // Specify where arguments as necessary.
 	    String where = EMPLOYER_ID + "=" + 0;
@@ -174,11 +157,10 @@ public class HourlyDatabase {
 	    db.delete(DatabaseHelper.TABLE_EMPLOYER, where, whereArgs);
 	  }
 
-	  /**
-	   * Listing 8-2: Implementing an SQLite Open Helper
-	   */
-	  private static class DatabaseHelper extends SQLiteOpenHelper {
-	
+
+	  
+private static class DatabaseHelper extends SQLiteOpenHelper {
+
       public static final int DATABASE_VERSION = 1;
       public static final String DATABASE_NAME ="hourlyDatabase.db";
 	

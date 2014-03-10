@@ -1,5 +1,10 @@
 package se.ludvig.hourly.test;
 
-public class TestSQLite extends AndroidTestClass {
+import android.test.AndroidTestCase;
+
+public class TestSQLite extends AndroidTestCase  {
+	
+	
+	
 
 }
