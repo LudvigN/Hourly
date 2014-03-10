@@ -14,13 +14,14 @@
 	</section>
 	<section name="WorkbenchPreferenceDialogSettings">
 		<item value="158" key="DIALOG_Y_ORIGIN"/>
-		<item value="651" key="DIALOG_X_ORIGIN"/>
+		<item value="186" key="DIALOG_X_ORIGIN"/>
 	</section>
 	<section name="NewWizardAction">
-		<item value="org.eclipse.jdt.ui.wizards.NewClassCreationWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<item value="org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="com.android.ide.eclipse.wizards.category"/>
 			<item value="org.eclipse.jdt.ui.java"/>
+			<item value="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"/>
 			<item value="com.objectaid.uml.new"/>
 		</list>
 	</section>

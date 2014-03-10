@@ -1,11 +1,8 @@
 INDEX VERSION 1.126+C:\Users\Ludvig\Skola\MobilProgrammeringFörAndroid\projektet\Hourly\.metadata\.plugins\org.eclipse.jdt.core
-4063110797.index
-1786066307.index
-2317163535.index
-729017369.index
-2545522909.index
 3075103146.index
-2392928653.index
-1646195956.index
-2130033126.index
 4249931007.index
+2317163535.index
+1786066307.index
+4063110797.index
+729017369.index
+2392928653.index
