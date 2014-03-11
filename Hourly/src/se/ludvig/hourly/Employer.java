@@ -1,10 +1,13 @@
 package se.ludvig.hourly;
 
+import java.util.ArrayList;
+
 public class Employer {
 
 	private String name;
 	private String address; 
 	private double hourlySalery;
+	private ArrayList<OB> obList;
 	
 	public Employer(String mName, String mAddress, double mSalery)
 	{
@@ -41,5 +44,16 @@ public class Employer {
 		}
 		else 
 			return hourlySalery;
+	}
+	public double propTax(double newTax) 
+	{
+		if (newTax != 0)
+		{
+			hourlySalery = newTax;
+			return 0;
+		}
+		else 
+			return hourlySalery;
+		
 	}
 }

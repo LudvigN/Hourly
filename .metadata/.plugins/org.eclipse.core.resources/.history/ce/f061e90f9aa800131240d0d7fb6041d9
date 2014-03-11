@@ -1,0 +1,16 @@
+package se.ludvig.hourly;
+
+public class OB 
+{
+	double startTime;
+	double endTime;
+	double amount;
+	boolean onlyHolidays;
+	
+	
+	public OB()
+	{
+		
+	}
+
+}

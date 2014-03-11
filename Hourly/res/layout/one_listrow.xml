@@ -8,7 +8,7 @@
             android:id="@+id/txtEmpName"
             android:textStyle="bold"
             android:layout_height="50dp"
-            android:shadowColor="#FFBB33" />"
+            android:shadowColor="#FFBB33" />
     </TableRow>
     
 

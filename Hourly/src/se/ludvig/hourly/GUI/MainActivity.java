@@ -1,11 +1,11 @@
 package se.ludvig.hourly.GUI;
 
 import se.ludvig.hourly.R;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 	
 	private String[] navDrawerItems;
 	private DrawerLayout navDrawerLayout;
@@ -49,8 +49,11 @@ public class MainActivity extends FragmentActivity {
     	Log.i("Main", "Select item:" + String.valueOf(position));
     	
     	Fragment fr = null;
+    	
     	Bundle bundle = new Bundle();
-    	FragmentManager fragmentManager = getSupportFragmentManager();
+    	FragmentManager fragmentManager = getFragmentManager();
+    	
+    	
     	
     	switch(position)
     	{
@@ -67,10 +70,15 @@ public class MainActivity extends FragmentActivity {
     			break;
     	}
     	
- 
+    	
     	FragmentTransaction ft = fragmentManager.beginTransaction();
+    	
     	ft.replace(R.id.content_frame, fr);
+ 
     	ft.commit();
+    	
+    	
+    	
     	
     	setTitle(navDrawerItems[position]);
     	mDrawerList.setItemChecked(position, true);

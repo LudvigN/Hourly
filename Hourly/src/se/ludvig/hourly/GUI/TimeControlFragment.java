@@ -4,8 +4,6 @@ import java.util.List;
 
 import se.ludvig.hourly.EmployeeManager;
 import se.ludvig.hourly.Employer;
-import se.ludvig.hourly.R;
-import se.ludvig.hourly.R.layout;
 import android.app.ActionBar;
 
 import android.app.ActionBar.OnNavigationListener;
@@ -13,14 +11,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import se.ludvig.hourly.R;
 
-public class TimeControlFragment extends Fragment implements ActionBar.OnNavigationListener {
+public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavigationListener */{
 
 
 
@@ -38,8 +37,7 @@ public class TimeControlFragment extends Fragment implements ActionBar.OnNavigat
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{				
-		View view = inflater.inflate(R.layout.calendar_fragment, container, false);
-		return view;
+		return inflater.inflate(R.layout.calendar_fragment, container, false);
 	}
 	
 	@Override
@@ -108,7 +106,7 @@ public class TimeControlFragment extends Fragment implements ActionBar.OnNavigat
 		return ar;
 	}
 
-	@Override
+	/*@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		 // When the given dropdown item is selected, show its contents in the
 	    // container view.
@@ -125,8 +123,8 @@ public class TimeControlFragment extends Fragment implements ActionBar.OnNavigat
 	    fragment.setArguments(args);
 	    getFragmentManager().beginTransaction()
 	        .replace( R.layout.employer_fragment ,fragment).commit();*/
-	    return true;
-	}
+//	    return true;
+	//}
 
 
 	public class SpinnerAdapter extends ArrayAdapter<Employer>
