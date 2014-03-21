@@ -1,8 +1,27 @@
 apply plugin: 'android'
+apply plugin: 'maven'
+
+buildscript {
+    repositories {
+        maven { url 'http://repo1.maven.org/maven2' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    //maven { url 'C:/Users/Ludvig/.m2/repository' }
+    mavenCentral()
+}
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.1"
+    buildToolsVersion '19.0.1'
+
 
     defaultConfig {
         minSdkVersion 14
@@ -18,8 +37,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
 }
 
+
+/*
+
 dependencies {
-    compile 'com.android.support:support-v4:+'
+    compile 'com.afollestad.cardsui:library:1.0-SNAPSHOT'
 }
+
+*/

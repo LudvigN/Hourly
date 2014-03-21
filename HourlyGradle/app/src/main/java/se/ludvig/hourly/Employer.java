@@ -8,6 +8,13 @@ public class Employer {
 	private String address; 
 	private String hourlySalery;
 	private ArrayList<OB> obList;
+    private int db_id;
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     private String phoneNumber;
 
     public Employer(String mName, String mAddress, String mSalery, String mPhoneNumber)
@@ -47,17 +54,6 @@ public class Employer {
 		else 
 			return hourlySalery;
 	}
-	/*public double propTax(double newTax)
-	{
-		if (newTax != 0)
-		{
-			hourlySalery = newTax;
-			return 0;
-		}
-		else 
-			return hourlySalery;
-		
-	}*/
 
     public String propPhone(String number)
     {
@@ -68,5 +64,15 @@ public class Employer {
         }
         else
             return phoneNumber;
+    }
+    public int propId(int newID)
+    {
+        if (newID == -1)
+        {
+            return db_id;
+        }
+        else
+            db_id = newID;
+            return -1;
     }
 }

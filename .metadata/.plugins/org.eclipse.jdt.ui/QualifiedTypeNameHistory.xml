@@ -34,4 +34,7 @@
 <fullyQualifiedTypeName name="android.app.FragmentTransaction"/>
 <fullyQualifiedTypeName name="android.app.FragmentManager"/>
 <fullyQualifiedTypeName name="android.app.Fragment"/>
+<fullyQualifiedTypeName name="database.HourlyDatabase"/>
+<fullyQualifiedTypeName name="tempStorage.EmployeeManager"/>
+<fullyQualifiedTypeName name="tempStorage.Employer"/>
 </qualifiedTypeNameHistroy>

@@ -9,9 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 public class HourlyDatabase {
-	
+	//TODO Impmementera ytterligare queries
 	
 	  //The index (key) column name for use in where clauses.
 	  public static final String KEY_ID = "_id";
@@ -25,7 +26,7 @@ public class HourlyDatabase {
 		public static final String EMPLOYER_EMAIL ="employerEmail";
 		public static final String EMPLOYER_PHONENUMBER ="employerPhoneNumber";
 		public static final String EMPLOYER_FOREIGN_KEY_SALERY ="salery";
-		public static final String EMPLOYER_FOREIGN_KEY_OB = "ob";
+
 		
 		//TABLE SALERYs columns
 		public static final String SALERY_ID = "sId";
@@ -45,6 +46,7 @@ public class HourlyDatabase {
 		public static final String OB_START_TIME = "startTime";
 		public static final String OB_END_TIME = "endTime";
 		public static final String OB_ONLY_RED_DAYS ="onlyRedDays";
+    public static final String OB_FOREIGN_KEY_EMPLOYER = "associatedEmployer";
 	  
 
 
@@ -81,7 +83,7 @@ public class HourlyDatabase {
 	  public Cursor getEmployer() {
 	   
 	    String[] result_columns = new String[] { 
-	      EMPLOYER_ID, EMPLOYER_NAME, EMPLOYER_EMAIL, EMPLOYER_PHONENUMBER, EMPLOYER_FOREIGN_KEY_SALERY, EMPLOYER_FOREIGN_KEY_OB }; 
+	      EMPLOYER_ID, EMPLOYER_NAME, EMPLOYER_EMAIL, EMPLOYER_PHONENUMBER, EMPLOYER_FOREIGN_KEY_SALERY };
 	    
 	    // Specify the where clause that will limit our results.
 	    //String where = EMPLOYER_ID + "=" + 1;
@@ -177,10 +179,9 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 		      EMPLOYER_NAME + " text not null, " +
 		      EMPLOYER_EMAIL + " text, " + 
 		      EMPLOYER_PHONENUMBER + " integer, " + 
-		      EMPLOYER_FOREIGN_KEY_SALERY + " integer, " + 
-		      EMPLOYER_FOREIGN_KEY_OB + " integer, " + 
-		      "FOREIGN KEY (" + EMPLOYER_FOREIGN_KEY_SALERY+") REFERENCES "+ TABLE_SALERY +"("+SALERY_ID+"), " + 
-		      "FOREIGN KEY (" + EMPLOYER_FOREIGN_KEY_OB + ") REFERENCES "+ TABLE_EXTRA_PAYMENT +"("+OB_ID+"));";
+		      EMPLOYER_FOREIGN_KEY_SALERY + " integer, " +
+            OB_FOREIGN_KEY_EMPLOYER + " integer, " +
+		      "FOREIGN KEY (" + EMPLOYER_FOREIGN_KEY_SALERY+") REFERENCES "+ TABLE_SALERY +"("+SALERY_ID+"));";
 	
 	private static final String SALERY_CREATE = "create table " +
 		      TABLE_SALERY + " (" + SALERY_ID +
@@ -201,8 +202,12 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String OB_CREATE = "create table " +
 		      TABLE_EXTRA_PAYMENT + " (" + OB_ID +
 		      " integer primary key autoincrement, " +
-		      OB_AMOUNT + " float not null, " +
-		      OB_START_TIME + " float, "+OB_END_TIME+" float, "+ OB_ONLY_RED_DAYS + "integer);";
+		        OB_AMOUNT + " float not null, " +
+		        OB_START_TIME + " float, "+
+                OB_END_TIME+" float, "+
+                OB_ONLY_RED_DAYS + " integer, "+
+                OB_FOREIGN_KEY_EMPLOYER +" integer, " +
+            "FOREIGN KEY (" + OB_FOREIGN_KEY_EMPLOYER + ") REFERENCES "+ TABLE_EMPLOYER +"("+EMPLOYER_ID+"));";
 	
 	private DatabaseHelper(Context context, String name,
             CursorFactory factory, int version) {
@@ -211,6 +216,12 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+
+
+        Log.i("create employer sql", EMPLOYER_CREATE);
+        Log.i("create workevent sql", WORKEVENT_CREATE);
+        Log.i("create SALERY sql", SALERY_CREATE);
+        Log.i("create OB sql", OB_CREATE);
 		db.execSQL(EMPLOYER_CREATE);
 		db.execSQL(WORKEVENT_CREATE);
 		db.execSQL(SALERY_CREATE);

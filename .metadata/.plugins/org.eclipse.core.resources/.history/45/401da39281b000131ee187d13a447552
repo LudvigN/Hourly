@@ -1,0 +1,245 @@
+package com.example.androidclient;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.R.raw;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.Menu;
+import android.widget.FrameLayout;
+
+import com.example.androidclient.gameservice.GameService;
+import com.example.androidclient.message.ConnectMessage;
+import com.example.androidclient.message.GameMessage;
+import com.example.androidclient.message.GameMessageType;
+import com.example.androidclient.message.PollMessage;
+import com.example.androidclient.message.RollMessage;
+
+
+public class MainActivity extends FragmentActivity{
+
+
+
+	FrameLayout fl;
+	ConnectFragment connectFragment;
+	GameFragment gameFragment;
+	
+	boolean isInForeGround = false;
+	
+	GameManager gameManager;
+	
+	private IGameServiceInterface mGameService;
+		
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        fl = (FrameLayout)findViewById(R.id.fragment_main);
+        connectFragment = new ConnectFragment();
+        Transit(connectFragment);
+        
+        // Starta Service för HTTP Kommunikation
+		Intent intent = new Intent(this, GameService.class);
+		startService(intent);
+		bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+		
+		gameManager = new GameManager();
+	
+    }
+    
+    // Hämta brygga till service
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+		
+		@Override
+		public void onServiceConnected(ComponentName cn, IBinder service) {
+			mGameService = IGameServiceInterface.Stub.asInterface(service);	
+		}
+    	
+		@Override
+		public void onServiceDisconnected(ComponentName cn) {
+			mGameService = null;			
+		}
+		
+	};
+    
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		// Registrera broadcastreciever
+	    IntentFilter intentfilter = new IntentFilter("com.example.androidclient");
+		registerReceiver(mGameServiceReciever, intentfilter);
+		
+		// Appen är i förgrunden
+		isInForeGround = true;
+		
+	}
+    
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		// Appen är inte i förgrunden
+		isInForeGround = false;
+		
+		//unregisterReceiver(mGameServiceReciever);
+	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    // Metod för att connecta till server
+    public void connect(String userName)
+    {
+    	gameManager.setUserId(userName);
+    	
+        try {
+			mGameService.connect(userName);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}    	
+    }
+    
+    // Metod för att göra sitt drag
+	public void roll() {
+		Log.i("Main", "Is users turn:" + gameManager.isUsersTurn());
+		if(gameManager.isUsersTurn())
+		{
+			try {
+				mGameService.rollDice(gameManager.getUserId());
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}	
+		}
+	}
+    
+    public void Transit(Fragment fr){
+    	FragmentManager fm = getSupportFragmentManager();
+    	FragmentTransaction ft = fm.beginTransaction();
+    	ft.replace(R.id.fragment_main, fr);
+    	ft.addToBackStack(null);
+    	ft.commit();
+    }
+    
+    
+    BroadcastReceiver mGameServiceReciever = new BroadcastReceiver() {
+		
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			
+			String message = intent.getExtras().getString("json");
+			
+			
+			if(message != null)
+			{
+				Log.i("Main", message);
+			List<GameMessage> gameMessageTypes = new ArrayList<GameMessage>();
+			gameMessageTypes.add(new ConnectMessage(gameManager, MainActivity.this));
+			gameMessageTypes.add(new PollMessage(gameManager, MainActivity.this));
+			gameMessageTypes.add(new RollMessage(gameManager, MainActivity.this));
+			
+			
+			try
+			{
+				JSONObject json_object = new JSONObject(message);
+				
+				
+				String type = json_object.getString("type");
+				
+				for(GameMessage msg : gameMessageTypes)
+				{
+					if(msg.isMatch(GameMessageType.valueOf(type)))
+					{
+						msg.excecute(json_object);
+					}
+				}
+			}
+			catch(JSONException e)
+			{
+				e.printStackTrace();
+			}
+			
+					/*if(!isInForeGround)
+					{
+						Log.i("MAIN ACTIVITY", "Sending notification!");
+						NotificationCompat.Builder mBuilder =
+							    new NotificationCompat.Builder(getApplicationContext())
+							    .setSmallIcon(R.drawable.ic_launcher)
+							    .setContentTitle("New Message")
+							    .setContentText(json_object.getString("value"));
+						// Sets an ID for the notification
+						int mNotificationId = 137;
+						// Gets an instance of the NotificationManager service
+						NotificationManager mNotifyMgr = 
+						        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+						// Builds the notification and issues it.
+						mNotifyMgr.notify(mNotificationId, mBuilder.build());	
+					}
+					
+					Log.i("MainActivity", json_object.getString("value"));
+					 */
+			
+				Log.i("Main", String.valueOf(gameManager.getOpponentsScore()));
+				Log.i("Main", String.valueOf(gameManager.getUsersScore()));
+			}
+		}
+	};
+    
+
+
+	public void changeGameScreen() {
+		gameFragment = new GameFragment();
+		Transit(gameFragment);
+	}
+	
+	public void startPoll()
+	{
+		try {
+			mGameService.startPoll();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+    
+	public void stopPoll()
+	{
+		try {
+			mGameService.stopPoll();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+		
+	public void updateScore(){
+		gameFragment.updateScore(gameManager);
+	}
+	
+	public void updateDiceImages(){
+		
+	}
+	
+    
+    
+}

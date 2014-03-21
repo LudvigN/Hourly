@@ -9,9 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 public class HourlyDatabase {
-	
+	//TODO Impmementera ytterligare queries
 	
 	  //The index (key) column name for use in where clauses.
 	  public static final String KEY_ID = "_id";
@@ -45,7 +46,7 @@ public class HourlyDatabase {
 		public static final String OB_START_TIME = "startTime";
 		public static final String OB_END_TIME = "endTime";
 		public static final String OB_ONLY_RED_DAYS ="onlyRedDays";
-    public static final String OB_FOREIGN_KEY_EMPLOYER = "ob";
+    public static final String OB_FOREIGN_KEY_EMPLOYER = "associatedEmployer";
 	  
 
 
@@ -204,8 +205,8 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 		        OB_AMOUNT + " float not null, " +
 		        OB_START_TIME + " float, "+
                 OB_END_TIME+" float, "+
-                OB_ONLY_RED_DAYS + "integer"+
-                OB_FOREIGN_KEY_EMPLOYER +"integer" +
+                OB_ONLY_RED_DAYS + " integer, "+
+                OB_FOREIGN_KEY_EMPLOYER +" integer, " +
             "FOREIGN KEY (" + OB_FOREIGN_KEY_EMPLOYER + ") REFERENCES "+ TABLE_EMPLOYER +"("+EMPLOYER_ID+"));";
 	
 	private DatabaseHelper(Context context, String name,
@@ -215,6 +216,12 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+
+
+        Log.i("create employer sql", EMPLOYER_CREATE);
+        Log.i("create workevent sql", WORKEVENT_CREATE);
+        Log.i("create SALERY sql", SALERY_CREATE);
+        Log.i("create OB sql", OB_CREATE);
 		db.execSQL(EMPLOYER_CREATE);
 		db.execSQL(WORKEVENT_CREATE);
 		db.execSQL(SALERY_CREATE);

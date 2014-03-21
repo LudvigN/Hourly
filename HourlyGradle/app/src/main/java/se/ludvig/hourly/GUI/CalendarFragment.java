@@ -18,10 +18,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class CalendarFragment extends Fragment {
-
+//TODO Lägg till funktion för att lägga till event
+    //TODO hantera plus-knappen i actionbaren
 	String[] events;
 	ListView list;
-	
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 

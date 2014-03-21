@@ -21,6 +21,7 @@ import se.ludvig.hourly.R;
 
 public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavigationListener */{
 
+    //TODO hantera actionbaren: Lägg till spinners, tabnavigation
 
 
 	private String[] spinnerActions;
