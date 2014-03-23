@@ -16,44 +16,45 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import se.ludvig.*;
 
 public class CalendarFragment extends Fragment {
 
 	String[] events;
 	ListView list;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
 
-		
+
 
 		return inflater.inflate(R.layout.calendar_fragment, container, false);
 	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		
+
 		Toast t = Toast.makeText(getActivity(), "CalendarFragmentLoaded", 2000);
     	t.show();
-		
+
     	Bundle args = getArguments();
 		events = args.getStringArray("employerArray");
-		
+
 		for(String e : events)
 		{
 			Log.i("Calendar", e);
 		}
-		
+
 		CalendarList cAdapter = new CalendarList(getActivity(), events);
-		
-		
-		
+
+
+
 		list = (ListView)view.findViewById(R.id.calendarList);
-		
+
 		list.setAdapter(cAdapter);
-		
+
 		 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
              @Override
              public void onItemClick(AdapterView<?> parent, View view,
@@ -61,7 +62,7 @@ public class CalendarFragment extends Fragment {
                  Toast.makeText(getActivity(), "You Clicked at " + events[+ position] , Toast.LENGTH_SHORT).show();
              }
          });
-		
+
 	}
 
 
@@ -70,7 +71,7 @@ public class CalendarFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
 	}
-	
-	
+
+
 
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <EditText
+        android:id="@+id/dialog_txt_new_emp_name" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:hint="@string/newEmpName"
+        android:inputType="text"
+        android:layout_above="@+id/dialog_txt_new_emp_phone"
+        />
+     <EditText
+        android:id="@+id/dialog_txt_new_emp_phone" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:inputType="phone"
+        android:hint="@string/newEmpPhone"
+        android:layout_above="@id/dialog_txt_new_emp_email"
+        />
+      <EditText
+        android:id="@+id/dialog_txt_new_emp_email" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:inputType="textEmailAddress"
+        android:hint="@string/newEmpEmail"
+        android:layout_above="@id/dialog_txt_new_emp_salery"
+        />
+      <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"/>
+     <EditText
+        android:id="@+id/dialog_txt_new_emp_salery" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:inputType="number"
+        android:hint="@string/newEmpSalery"
+         android:layout_above="@id/dialog_txt_new_emp_ob"
+        />
+     <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"/>	
+     <EditText
+        android:id="@+id/dialog_txt_new_emp_ob" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:inputType="number"
+        android:hint="@string/newEmpOb"
+         
+        />
+     
+     
+    
+    
+
+</RelativeLayout>

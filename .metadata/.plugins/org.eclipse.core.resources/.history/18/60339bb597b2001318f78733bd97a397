@@ -1,0 +1,16 @@
+package se.ludvig.hourly.GUI;
+
+import android.content.Context;
+import android.widget.ArrayAdapter;
+
+public class AddObListAdapter extends ArrayAdapter<OB> {
+
+	public AddObListAdapter(Context context, int resource) {
+		super(context, resource);
+		
+	}
+	
+
+	
+	
+}

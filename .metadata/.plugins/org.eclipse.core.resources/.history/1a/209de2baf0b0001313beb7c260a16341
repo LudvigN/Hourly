@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Hourly</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="actionbar_items">
+        <item>Kalender</item>
+        <item>Timrapport</item>
+        <item>Arbetsgivare</item>
+    </string-array>
+     <string-array name="employers">
+        <item>IKEA</item>
+        <item>ICA</item>
+        <item>Kenny</item>
+    </string-array>
+    
+     
+     <string name="newEmpName">Employer name</string>
+     <string name="newEmpPhone"> Phonenumber</string>
+     
+
+</resources>

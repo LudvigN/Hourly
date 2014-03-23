@@ -3,7 +3,6 @@
 
     <string name="app_name">Hourly</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string-array name="actionbar_items">
         <item>Kalender</item>
         <item>Timrapport</item>
@@ -14,5 +13,12 @@
         <item>ICA</item>
         <item>Kenny</item>
     </string-array>
+    
+     
+     <string name="newEmpName">Employer name</string>
+     <string name="newEmpPhone"> Phonenumber</string>
+     <string name="newEmpEmail"> Email</string>
+     <string name="newEmpSalery">Hourly wage</string>
+     <string name="newEmpOb">Extra for inconvenient working hours</string>
 
 </resources>

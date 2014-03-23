@@ -4,20 +4,19 @@ import java.util.List;
 
 import se.ludvig.hourly.EmployeeManager;
 import se.ludvig.hourly.Employer;
+import se.ludvig.hourly.R;
 import android.app.ActionBar;
-
 import android.app.ActionBar.OnNavigationListener;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import se.ludvig.hourly.R;
 
 public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavigationListener */{
 
@@ -28,25 +27,25 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	//2DO insert chartManager instead
 	private EmployeeManager mngr;
-	
+
 	public TimeControlFragment() {
-		
+
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{				
 		return inflater.inflate(R.layout.calendar_fragment, container, false);
 	}
-	
+
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		mngr = new EmployeeManager(getActivity());
 		spinnerActions = fillSpinnerArray();
 		ActionBar actionBar = getActivity().getActionBar();
 		setBarNavigation(actionBar);
-	
+
 		super.onViewCreated(view, savedInstanceState);
 	}
 
@@ -55,18 +54,18 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
 		removeBarNavigation(getActivity().getActionBar());
 		super.onPause();
 	}
-	
+
 	private void setBarNavigation(ActionBar bar){
 		bar.setDisplayShowTitleEnabled(false);
-	   
+
 	    bar.setDisplayHomeAsUpEnabled(true);
 	    bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF8800")));
 	    bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),  
 	          android.R.layout.simple_spinner_dropdown_item, spinnerActions);
-	    
+
 	    ActionBar.OnNavigationListener navigationListener = new OnNavigationListener() {
-	    	 
+
             @Override
             public boolean onNavigationItemSelected(int itemPosition, long itemId) {
                 Toast.makeText(getActivity(), "You selected : " + spinnerActions[itemPosition]  , Toast.LENGTH_SHORT).show();
@@ -77,13 +76,13 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
         bar.setListNavigationCallbacks(adapter, navigationListener);
 
 	}
-	
+
 	private void removeBarNavigation(ActionBar bar)
 	{
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		
-		
-		
+
+
+
 	}
 
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -93,7 +92,7 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
     		actionBar.setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
     	}
 	}
-	
+
 	private String[] fillSpinnerArray() 
 	{
 		int i = 0;
@@ -132,19 +131,19 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
 
 		public SpinnerAdapter(Context context, int resource,
 				int textViewResourceId, List<Employer> objects) {
-			
-			
-			
+
+
+
 			super(context, resource, textViewResourceId, objects);
 
 		}
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 	}
 
 }

@@ -12,27 +12,27 @@ public class CalendarList extends ArrayAdapter<String>
 {
 	private final Activity context;
 	private final String[] empNames;
-	
-	public CalendarList(Activity context, String[] web)
+
+	public CalendarList(Activity context, String[] empNames)
 	{
-		super(context, R.layout.one_listrow, web);
+		super(context, R.layout.one_listrow, empNames);
 		this.context = context;
-		this.empNames = web;
-		
+		this.empNames = empNames;
+
 	}
-		
+
 	@Override
 	public View getView(int position, View view, ViewGroup parent) {
-	
+
 		LayoutInflater inflater = context.getLayoutInflater();
-	
+
 		View rowView= inflater.inflate(R.layout.one_listrow, null, true);
-	
+
 		TextView txtTitle = (TextView) rowView.findViewById(R.id.txtEmpName);
-	
+
 		txtTitle.setText(empNames[position]);
-	
+
 		return rowView;
 	}
-	
+
 }

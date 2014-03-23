@@ -6,8 +6,8 @@ public class OB
 	private double endTime;
 	private double amount;
 	private	Boolean onlyHolidays;
-	
-	
+
+
 	public OB(double startTime, double endTime, double amount, boolean onlyHolidays)
 	{
 		this.startTime = startTime;
@@ -15,7 +15,7 @@ public class OB
 		this.amount = amount;
 		this.onlyHolidays = onlyHolidays;
 	}
-	
+
 	public double propStartTime(double newStartTime)
 	{
 		if (newStartTime != 0)
@@ -26,7 +26,7 @@ public class OB
 		else
 			return startTime;
 	}
-	
+
 	public double propEndTime(double newEndTime)
 	{
 		if (endTime != 0)
@@ -37,7 +37,7 @@ public class OB
 		else
 			return endTime ;
 	}
-	
+
 	public double propAmount(double newAmount)
 	{
 		if (newAmount != 0)

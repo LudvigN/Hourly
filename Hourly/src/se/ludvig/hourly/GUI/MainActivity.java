@@ -1,6 +1,6 @@
 package se.ludvig.hourly.GUI;
 
-import se.ludvig.hourly.R;
+import se.ludvig.hourly.*;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,13 +9,14 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends Activity {
-	
+public class MainActivity extends Activity implements EmployersFragment.IEmployers{
+
 	private String[] navDrawerItems;
 	private DrawerLayout navDrawerLayout;
 	private ListView mDrawerList;
@@ -43,7 +44,22 @@ public class MainActivity extends Activity {
 
     }
 
-    private void selectItem(int position) {
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId())
+		{
+		case R.id.new_employer:
+			AddEmployerDialog dialog = new AddEmployerDialog();
+			FragmentManager frmngr = getFragmentManager();
+			FragmentTransaction ft = frmngr.beginTransaction();
+			ft.replace(R.id.content_frame, dialog);
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+
+	private void selectItem(int position) {
     	  	
     	
     	Log.i("Main", "Select item:" + String.valueOf(position));
@@ -94,5 +110,18 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+
+
+	@Override
+	public void createNewEmployerDialog() {
+		Log.i("mCallback", "was called");
+		AddEmployerDialog dialog = new AddEmployerDialog();
+		FragmentManager frmngr = getFragmentManager();
+		/*FragmentTransaction ft = frmngr.beginTransaction();
+		ft.replace(R.id.content_frame, dialog);
+		ft.commit();*/
+		dialog.show(frmngr, "dialog");
+	}
     
 }

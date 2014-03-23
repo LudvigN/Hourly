@@ -6,15 +6,18 @@ public class Employer {
 
 	private String name;
 	private String address; 
-	private double hourlySalery;
+	private String hourlySalery;
 	private ArrayList<OB> obList;
-	
-	public Employer(String mName, String mAddress, double mSalery)
+    private String phoneNumber;
+
+    public Employer(String mName, String mAddress, String mSalery, String mPhoneNumber)
 	{
 		propName(mName);
 		propAddress(mAddress);
 		propSalery(mSalery);
+        propPhone(phoneNumber);
 	}
+
 	public String propName(String newName)
 	{
 		if (newName != null)
@@ -35,17 +38,17 @@ public class Employer {
 		else 
 			return address;
 	}
-	public double propSalery(double newSalery)
+	public String propSalery(String newSalery)
 	{
-		if (newSalery != 0)
+		if (newSalery != null)
 		{
 			hourlySalery = newSalery;
-			return 0;
+			return hourlySalery;
 		}
 		else 
 			return hourlySalery;
 	}
-	public double propTax(double newTax) 
+	/*public double propTax(double newTax)
 	{
 		if (newTax != 0)
 		{
@@ -55,5 +58,16 @@ public class Employer {
 		else 
 			return hourlySalery;
 		
-	}
+	}*/
+
+    public String propPhone(String number)
+    {
+        if (number != null)
+        {
+            address = number;
+            return null;
+        }
+        else
+            return phoneNumber;
+    }
 }

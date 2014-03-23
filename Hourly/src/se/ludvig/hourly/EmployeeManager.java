@@ -8,47 +8,66 @@ import android.database.Cursor;
 
 public class EmployeeManager {
 
-	ArrayList<Employer> employers;
+	ArrayList<Employer> employers = new ArrayList<Employer>();
 	Context context;
-	
+    HourlyDatabase db;
+
 	public EmployeeManager(Context context) 
 	{
 		this.context = context;
-		employers = new ArrayList<Employer>();
-		fillListWithFake();
+        
 	}
-	private void fillListWithFake() {
-		
-		employers.add(new Employer("Ikea", "Malmö Kronprinsen", 100));
-		employers.add(new Employer("MAH", "Ubåtshallen", 40));
-		employers.add(new Employer("Svea Rike", "Malmstensland nr 1", 150));
-		
-	}
-	public ArrayList<Employer> getList()
+
+	public ArrayList<Employer> updateList()
 	{
-		ArrayList<Employer> list = new ArrayList<Employer>();
-		HourlyDatabase db = new HourlyDatabase(context);
-		
+	     db = new HourlyDatabase(context);
+
 		Cursor c = db.getEmployer();
-		
+
 		if(c.moveToFirst())
 		{			
 			while(c.moveToNext())
 			{
-				list.add(new Employer(
+				employers.add(new Employer(
 						c.getString(c.getColumnIndex(db.EMPLOYER_NAME)), 
 						c.getString(c.getColumnIndex(db.EMPLOYER_EMAIL)),
-						c.getDouble(c.getColumnIndex(db.EMPLOYER_FOREIGN_KEY_SALERY))
+                        c.getString(c.getColumnIndex(db.EMPLOYER_PHONENUMBER)),
+                        c.getString(c.getColumnIndex(db.EMPLOYER_PHONENUMBER))
 						));
 			}
 		}
-		
-		return list;
-		
+
+		return employers;
+
 	}
-	
-	
-	
-	
+
+    public ArrayList<Employer> getList()
+    {
+        if(employers.isEmpty())
+        {
+            updateList();
+            return employers;
+        }
+        else
+            return employers;
+
+    }
+
+    public int addEmployer(Employer employer)
+    {
+        if(db == null)
+        {
+            db = new HourlyDatabase(context);
+        }
+
+        db.addEmployer(employer.propName(null), employer.propAddress(null), employer.propPhone(null));
+
+        return 1;
+    }
+
+
+
+
+
 
 }
