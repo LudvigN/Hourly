@@ -1,9 +1,0 @@
-package se.ludvig.hourly.test;
-
-import junit.framework.TestCase;
-
-public class TestsSQLite extends TestCase 
-
-{
-
-}
