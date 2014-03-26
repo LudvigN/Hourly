@@ -42,7 +42,6 @@ public class EmployersFragment extends Fragment implements ActionBar.OnNavigatio
 	{
 		mngr = new EmployeeManager(getActivity());
 		
-		EmployeeManager man = new EmployeeManager(getActivity());
 
 		ArrayList<Employer> listEMp = mngr.getList();
 

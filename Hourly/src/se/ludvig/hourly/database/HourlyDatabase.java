@@ -56,18 +56,10 @@ public class HourlyDatabase {
 	    dbHelper  = new DatabaseHelper(context, DatabaseHelper.DATABASE_NAME, null, 
               DatabaseHelper.DATABASE_VERSION);
 
-	    seed();
+	    
 	  }
 
 
-
-		private void seed()
-		{
-			addEmployer("IKEA", "info@ikea.se", "0708794568");
-			addEmployer("ICA", "info@ikea.se", "0708794568");
-			addEmployer("LUDVIG", "info@ikea.se", "0708794568");
-			addEmployer("ATEA", "info@ikea.se", "0708794568");
-		}
 
 	  // Called when you no longer need access to the database.
 
@@ -146,17 +138,7 @@ public class HourlyDatabase {
 		              where, whereArgs);
 		  }
 
-	  public void deleteEmptyHoards() {
 
-	    // Specify a where clause that determines which row(s) to delete.
-	    // Specify where arguments as necessary.
-	    String where = EMPLOYER_ID + "=" + 0;
-	    String whereArgs[] = null;
-
-	    // Delete the rows that match the where clause.
-	    SQLiteDatabase db = dbHelper.getWritableDatabase();
-	    db.delete(DatabaseHelper.TABLE_EMPLOYER, where, whereArgs);
-	  }
 
 
 

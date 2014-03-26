@@ -9,8 +9,9 @@ public class Employer {
 	private String hourlySalery;
 	private ArrayList<OB> obList;
     private String phoneNumber;
+    private int key;
 
-    public Employer(String mName, String mAddress, String mSalery, String mPhoneNumber)
+    public Employer(String mName, String mAddress, String mSalery, String mPhoneNumber, int mKey)
 	{
 		propName(mName);
 		propAddress(mAddress);

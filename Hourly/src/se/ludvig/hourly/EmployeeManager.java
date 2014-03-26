@@ -29,10 +29,11 @@ public class EmployeeManager {
 			while(c.moveToNext())
 			{
 				employers.add(new Employer(
-						c.getString(c.getColumnIndex(db.EMPLOYER_NAME)), 
-						c.getString(c.getColumnIndex(db.EMPLOYER_EMAIL)),
-                        c.getString(c.getColumnIndex(db.EMPLOYER_PHONENUMBER)),
-                        c.getString(c.getColumnIndex(db.EMPLOYER_PHONENUMBER))
+						c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_NAME)), 
+						c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_EMAIL)),
+                        c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_PHONENUMBER)),
+                        c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_PHONENUMBER)),
+                        c.getInt(c.getColumnIndex(HourlyDatabase.EMPLOYER_ID))
 						));
 			}
 		}

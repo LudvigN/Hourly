@@ -20,5 +20,10 @@
      <string name="newEmpEmail"> Email</string>
      <string name="newEmpSalery">Hourly wage</string>
      <string name="newEmpOb">Extra for inconvenient working hours</string>
+     
+      <string-array name="ob_options">
+        <item>Everyday</item>
+        <item>Only on holidays</item>
+    </string-array>
 
 </resources>

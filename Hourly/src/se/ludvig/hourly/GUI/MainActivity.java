@@ -1,7 +1,12 @@
 package se.ludvig.hourly.GUI;
 
+import java.util.ArrayList;
+
 import se.ludvig.hourly.*;
+import se.ludvig.hourly.GUI.AddEmployerDialog.OnDialogFinished;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class MainActivity extends Activity implements EmployersFragment.IEmployers{
@@ -20,6 +26,8 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
 	private String[] navDrawerItems;
 	private DrawerLayout navDrawerLayout;
 	private ListView mDrawerList;
+	EmployeeManager empMngr;
+	AddEmployerDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,7 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
 		switch(item.getItemId())
 		{
 		case R.id.new_employer:
-			AddEmployerDialog dialog = new AddEmployerDialog();
+			 dialog = new AddEmployerDialog();
 			FragmentManager frmngr = getFragmentManager();
 			FragmentTransaction ft = frmngr.beginTransaction();
 			ft.replace(R.id.content_frame, dialog);
@@ -115,13 +123,32 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
 
 	@Override
 	public void createNewEmployerDialog() {
+		ArrayList<OB> obList = new ArrayList<OB>();
+		
 		Log.i("mCallback", "was called");
-		AddEmployerDialog dialog = new AddEmployerDialog();
+		dialog = new AddEmployerDialog();
+	
+		dialog.setDialogresult(new OnDialogFinished(){
+		    public void finish(Employer newEmp){
+		    	empMngr.addEmployer(newEmp);
+		        
+		    }
+		});
+		
+		
+		
 		FragmentManager frmngr = getFragmentManager();
-		/*FragmentTransaction ft = frmngr.beginTransaction();
-		ft.replace(R.id.content_frame, dialog);
-		ft.commit();*/
+		empMngr = new EmployeeManager(this);
+		
+		
 		dialog.show(frmngr, "dialog");
+		dialog.setDialogresult(new OnDialogFinished(){
+		    public void finish(Employer newEmp){
+		    	empMngr.addEmployer(newEmp);
+		        
+		    }
+		});
+		
 	}
     
 }

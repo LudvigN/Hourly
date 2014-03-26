@@ -10,23 +10,23 @@
         >
     <TextView
         android:id="@+id/dialog_tv_new_emp_ob" 
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:hint="@string/newEmpOb" 
-        android:layout_column="1"
-        android:gravity="right" 
+        android:layout_weight=".60"
         />
      <EditText
         android:id="@+id/dialog_txt_new_emp_ob" 
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:inputType="number"
-        android:layout_column="2"
+        android:inputType="number" 
         android:hint="00"
-        android:gravity="left"
-        />
+        android:layout_weight=".40"/>
+        <!-- android:layout_column="2" -->
+        
+       
     </TableRow>
     <TableRow  
         android:layout_width ="match_parent"
@@ -37,20 +37,25 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:hint="Rules for OB"
+        android:entries="@array/ob_options"
+       
          />
  	</TableRow>
  	<TableRow 
  	    android:layout_width ="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp">
      <TimePicker
         android:id="@+id/dialog_new_ob_starttime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight=".40"
+       
        />
       <TimePicker
         android:id="@+id/dialog_new_ob_endtime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content" 
+        android:layout_weight=".40"
        />    
         
     </TableRow>
