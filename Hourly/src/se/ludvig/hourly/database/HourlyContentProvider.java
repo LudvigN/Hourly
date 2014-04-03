@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
+//Skeleton-class for future contentprovider
 public class HourlyContentProvider extends ContentProvider
 {
 

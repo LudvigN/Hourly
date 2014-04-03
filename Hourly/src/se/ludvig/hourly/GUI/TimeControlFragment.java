@@ -18,14 +18,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavigationListener */{
+public class TimeControlFragment extends Fragment {
 
 
 
 	private String[] spinnerActions;
 	private ActionBar actionBar;
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
-	//2DO insert chartManager instead
+	//TODO insert chartManager instead
 	private EmployeeManager mngr;
 
 	public TimeControlFragment() {
@@ -35,15 +35,16 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
-	{				
-		return inflater.inflate(R.layout.calendar_fragment, container, false);
+	{
+		//Sets view with mockup
+		return inflater.inflate(R.layout.timecontrol_layout, container, false);
 	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		mngr = new EmployeeManager(getActivity());
 		spinnerActions = fillSpinnerArray();
-		ActionBar actionBar = getActivity().getActionBar();
+		actionBar = getActivity().getActionBar();
 		setBarNavigation(actionBar);
 
 		super.onViewCreated(view, savedInstanceState);
@@ -55,6 +56,7 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
 		super.onPause();
 	}
 
+	//Sets spinner in actionbar containing employers
 	private void setBarNavigation(ActionBar bar){
 		bar.setDisplayShowTitleEnabled(false);
 
@@ -76,12 +78,11 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
         bar.setListNavigationCallbacks(adapter, navigationListener);
 
 	}
-
+	
+	
 	private void removeBarNavigation(ActionBar bar)
 	{
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-
-
 
 	}
 
@@ -93,6 +94,7 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
     	}
 	}
 
+	//Fills spinner with employernames
 	private String[] fillSpinnerArray() 
 	{
 		int i = 0;
@@ -105,33 +107,14 @@ public class TimeControlFragment extends Fragment /*implements ActionBar.OnNavig
 		return ar;
 	}
 
-	/*@Override
-	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		 // When the given dropdown item is selected, show its contents in the
-	    // container view.
-		
-		
-		
-		//tvName.setText(mngr.getList().get(itemPosition).propName(null));
-		
-		
-		
-	    /*Fragment fragment = new EmployerDetailFragment();
-	    Bundle args = new Bundle();
-	    args.putInt(null, itemPosition + 1);
-	    fragment.setArguments(args);
-	    getFragmentManager().beginTransaction()
-	        .replace( R.layout.employer_fragment ,fragment).commit();*/
-//	    return true;
-	//}
 
 
+	//Adapter for spinner
 	public class SpinnerAdapter extends ArrayAdapter<Employer>
 	{
 
 		public SpinnerAdapter(Context context, int resource,
 				int textViewResourceId, List<Employer> objects) {
-
 
 
 			super(context, resource, textViewResourceId, objects);

@@ -1,9 +1,7 @@
 package se.ludvig.hourly.GUI;
 
-import java.util.ArrayList;
-//import se.ludvig.hourly.R; 
+
 import se.ludvig.hourly.EmployeeManager;
-import se.ludvig.hourly.Employer;
 import se.ludvig.hourly.R;
 
 import android.app.ActionBar;
@@ -18,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,17 +38,6 @@ public class EmployersFragment extends Fragment implements ActionBar.OnNavigatio
 			Bundle savedInstanceState) 
 	{
 		mngr = new EmployeeManager(getActivity());
-		
-
-		ArrayList<Employer> listEMp = mngr.getList();
-
-		Log.i("Employee Fragment", "count:" + listEMp.size());
-
-		for(Employer e : listEMp)
-		{
-			Log.i("Employee Fragment", e.propName(null));
-		}
-
 
 		return inflater.inflate(R.layout.employer_fragment, container,false);
 
@@ -69,11 +55,13 @@ public class EmployersFragment extends Fragment implements ActionBar.OnNavigatio
 			mngr = new EmployeeManager(getActivity());
 		}
 
-
+		
 		EmployerList empAdapter = new EmployerList(getActivity(), mngr.getList());
-
+		
+		//instantiates listview in employer_fragment.xml
 		list = (ListView)view.findViewById(R.id.employerList);
-
+		
+		//Fills the employers list
 		list.setAdapter(empAdapter);
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

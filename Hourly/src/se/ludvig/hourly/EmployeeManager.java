@@ -8,6 +8,7 @@ import android.database.Cursor;
 
 public class EmployeeManager {
 
+	//List containing all employers as Employerobjects
 	ArrayList<Employer> employers = new ArrayList<Employer>();
 	Context context;
     HourlyDatabase db;
@@ -18,6 +19,7 @@ public class EmployeeManager {
         
 	}
 
+	//Updates the temporary storage employer list from database
 	public ArrayList<Employer> updateList()
 	{
 	     db = new HourlyDatabase(context);
@@ -28,13 +30,13 @@ public class EmployeeManager {
 		{			
 			while(c.moveToNext())
 			{
-				employers.add(new Employer(
+				Employer newEmp = new Employer(
 						c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_NAME)), 
 						c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_EMAIL)),
                         c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_PHONENUMBER)),
-                        c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_PHONENUMBER)),
-                        c.getInt(c.getColumnIndex(HourlyDatabase.EMPLOYER_ID))
-						));
+                        c.getString(c.getColumnIndex(HourlyDatabase.EMPLOYER_PHONENUMBER)));
+						newEmp.setKey(c.getColumnIndex(HourlyDatabase.EMPLOYER_ID));
+				employers.add(newEmp);
 			}
 		}
 
@@ -42,6 +44,7 @@ public class EmployeeManager {
 
 	}
 
+	//Returns employerlist
     public ArrayList<Employer> getList()
     {
         if(employers.isEmpty())
@@ -53,7 +56,8 @@ public class EmployeeManager {
             return employers;
 
     }
-
+    
+    //managing adding employer to list and database
     public int addEmployer(Employer employer)
     {
         if(db == null)
@@ -62,7 +66,7 @@ public class EmployeeManager {
         }
 
         db.addEmployer(employer.propName(null), employer.propAddress(null), employer.propPhone(null));
-
+        updateList();
         return 1;
     }
 

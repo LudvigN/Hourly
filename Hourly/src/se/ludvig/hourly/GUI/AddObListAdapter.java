@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 
 public class AddObListAdapter extends ArrayAdapter<OB> {
 
+	//Should be custom adapter... but not much now
 	private final Activity context;
 	public AddObListAdapter(Activity context) {
 		super(context, R.layout.add_ob_row);

@@ -20,10 +20,6 @@
 		<item value="com.android.ide.eclipse.editors.wizards.NewXmlFileWizard.Layout" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="com.android.ide.eclipse.wizards.category"/>
-			<item value="org.eclipse.jdt.ui.java"/>
-			<item value="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"/>
-			<item value="com.objectaid.uml.new"/>
-			<item value="org.eclipse.wst.XMLCategory"/>
 		</list>
 	</section>
 	<section name="ShowViewDialog">

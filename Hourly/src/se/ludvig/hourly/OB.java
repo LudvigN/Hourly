@@ -2,23 +2,25 @@ package se.ludvig.hourly;
 
 public class OB 
 {
-	private double startTime;
-	private double endTime;
-	private double amount;
+	private String startTime;
+	private String endTime;
+	private int amount;
 	private	Boolean onlyHolidays;
 
 
-	public OB(double startTime, double endTime, double amount, boolean onlyHolidays)
+	public OB(String amount, String startTime , String endTime, String onlyHolidays)
 	{
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.amount = amount;
-		this.onlyHolidays = onlyHolidays;
+		//this.amount = Integer.valueOf(amount);
+		
 	}
 
-	public double propStartTime(double newStartTime)
+	
+	//Properties for variables
+	public String propStartTime(String newStartTime)
 	{
-		if (newStartTime != 0)
+		if (newStartTime != null)
 		{
 			startTime = newStartTime;
 			return startTime;
@@ -27,9 +29,9 @@ public class OB
 			return startTime;
 	}
 
-	public double propEndTime(double newEndTime)
+	public String propEndTime(String newEndTime)
 	{
-		if (endTime != 0)
+		if (endTime != null)
 		{
 			endTime = newEndTime;
 			return endTime;
@@ -38,7 +40,7 @@ public class OB
 			return endTime ;
 	}
 
-	public double propAmount(double newAmount)
+	public double propAmount(int newAmount)
 	{
 		if (newAmount != 0)
 		{

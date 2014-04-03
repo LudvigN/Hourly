@@ -14,13 +14,13 @@ import se.ludvig.hourly.*;
 
 
 	
-	
+	//Custom listadapter for employer-view
 	public class EmployerList extends ArrayAdapter<Employer>  {
 
 
 		private final Activity context;
 		private final ArrayList <Employer> empNames;
-
+		//TODO add listener for changes in employers-list
 		public EmployerList(Activity context, ArrayList<Employer> eList)
 		{
 			super(context, R.layout.employer_listrow, eList); 
@@ -33,17 +33,19 @@ import se.ludvig.hourly.*;
 		public View getView(int position, View view, ViewGroup parent) {
 
 			LayoutInflater inflater = context.getLayoutInflater();
-
+			
+			//INflate listrows
 			View rowView= inflater.inflate(R.layout.employer_listrow, null, true);
 
+			//Instantiate and set layout listelements! 
 			TextView txtEmpName = (TextView) rowView.findViewById(R.id.txtEmployerName);
 			txtEmpName.setText(empNames.get(position).propName(null));
 
 			TextView txtSalary = (TextView) rowView.findViewById(R.id.txtEmpSalary);
-			txtSalary.setText(empNames.get(position).propPhone(null));//(Double.toString(empNames.get(position).propSalery(0)));
+			txtSalary.setText(empNames.get(position).propPhone(null));
 
 			TextView txtEmpTax = (TextView) rowView.findViewById(R.id.txtEmpTax);
-			txtEmpTax.setText(empNames.get(position).propAddress(null));//(/*Double.toString(*/empNames.get(position).propTax(null));
+			txtEmpTax.setText(empNames.get(position).propSalery(null));
 
 			return rowView;
 		}

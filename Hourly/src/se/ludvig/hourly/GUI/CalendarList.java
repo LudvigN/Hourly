@@ -13,6 +13,7 @@ public class CalendarList extends ArrayAdapter<String>
 	private final Activity context;
 	private final String[] empNames;
 
+	//Main calendar view, agenda view.
 	public CalendarList(Activity context, String[] empNames)
 	{
 		super(context, R.layout.one_listrow, empNames);
@@ -25,7 +26,7 @@ public class CalendarList extends ArrayAdapter<String>
 	public View getView(int position, View view, ViewGroup parent) {
 
 		LayoutInflater inflater = context.getLayoutInflater();
-
+		//Should inflate custom listS	
 		View rowView= inflater.inflate(R.layout.one_listrow, null, true);
 
 		TextView txtTitle = (TextView) rowView.findViewById(R.id.txtEmpName);

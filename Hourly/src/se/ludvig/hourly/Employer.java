@@ -10,8 +10,9 @@ public class Employer {
 	private ArrayList<OB> obList;
     private String phoneNumber;
     private int key;
-
-    public Employer(String mName, String mAddress, String mSalery, String mPhoneNumber, int mKey)
+    
+    //Constructor
+    public Employer(String mName, String mAddress, String mSalery, String mPhoneNumber)
 	{
 		propName(mName);
 		propAddress(mAddress);
@@ -19,6 +20,10 @@ public class Employer {
         propPhone(phoneNumber);
 	}
 
+	
+
+    //Properties for variables
+    //If you pass null you get the old value returned
 	public String propName(String newName)
 	{
 		if (newName != null)
@@ -29,6 +34,8 @@ public class Employer {
 		else
 			return name;
 	}
+	 //Properties for variables
+    //If you pass null you get the old value returned
 	public String propAddress(String newAddress)
 	{
 		if (newAddress != null)
@@ -39,6 +46,8 @@ public class Employer {
 		else 
 			return address;
 	}
+	 //Properties for variables
+    //If you pass null you get the old value returned
 	public String propSalery(String newSalery)
 	{
 		if (newSalery != null)
@@ -49,18 +58,10 @@ public class Employer {
 		else 
 			return hourlySalery;
 	}
-	/*public double propTax(double newTax)
-	{
-		if (newTax != 0)
-		{
-			hourlySalery = newTax;
-			return 0;
-		}
-		else 
-			return hourlySalery;
-		
-	}*/
+	
 
+	 //Properties for variables
+    //If you pass null you get the old value returned
     public String propPhone(String number)
     {
         if (number != null)
@@ -71,4 +72,19 @@ public class Employer {
         else
             return phoneNumber;
     }
+
+
+
+    //Properties for variables
+    //If you pass null you get the old value returned
+	public int setKey(int columnIndex) {
+		if (columnIndex == -1)
+		{
+			return key;
+		}
+		else
+		{
+			return key = columnIndex;
+		}
+	}
 }

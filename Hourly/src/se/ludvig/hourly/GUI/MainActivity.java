@@ -33,17 +33,18 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
-       // ActionBar actionBar = getActionBar();
         
-        //Navigationdrawer implementation
+        //Navigationdrawer-implementation
         navDrawerItems = getResources().getStringArray(R.array.actionbar_items);
         navDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navDrawerItems));	
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
+        
+        selectItem(1);
     }
 
+    //Listener for navigation drawer clicks
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -54,19 +55,12 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
 
     @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId())
-		{
-		case R.id.new_employer:
-			 dialog = new AddEmployerDialog();
-			FragmentManager frmngr = getFragmentManager();
-			FragmentTransaction ft = frmngr.beginTransaction();
-			ft.replace(R.id.content_frame, dialog);
-			break;
-		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 
 
+    //Chooses fragment from navigationdrawer-index
 	private void selectItem(int position) {
     	  	
     	
@@ -121,6 +115,8 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
 
 
 
+    //Instantiates the dialog for adding an employer, 
+    //also instatiating and handling input with interface
 	@Override
 	public void createNewEmployerDialog() {
 		ArrayList<OB> obList = new ArrayList<OB>();
@@ -129,10 +125,12 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
 		dialog = new AddEmployerDialog();
 	
 		dialog.setDialogresult(new OnDialogFinished(){
-		    public void finish(Employer newEmp){
+		    public void finish(Employer newEmp, OB newOB){
 		    	empMngr.addEmployer(newEmp);
+		    	
 		        
 		    }
+
 		});
 		
 		
@@ -142,12 +140,7 @@ public class MainActivity extends Activity implements EmployersFragment.IEmploye
 		
 		
 		dialog.show(frmngr, "dialog");
-		dialog.setDialogresult(new OnDialogFinished(){
-		    public void finish(Employer newEmp){
-		    	empMngr.addEmployer(newEmp);
-		        
-		    }
-		});
+		
 		
 	}
     

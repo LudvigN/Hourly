@@ -1,9 +1,8 @@
 package se.ludvig.hourly.GUI;
 
-import java.util.ArrayList;
 
-import se.ludvig.hourly.EmployeeManager;
-import se.ludvig.hourly.Employer;
+
+
 import se.ludvig.hourly.R;
 import android.app.Activity;
 
@@ -46,7 +45,8 @@ public class CalendarFragment extends Fragment {
 		{
 			Log.i("Calendar", e);
 		}
-
+		
+		//Should inflate custom list-adapter .... :¨(
 		CalendarList cAdapter = new CalendarList(getActivity(), events);
 
 
