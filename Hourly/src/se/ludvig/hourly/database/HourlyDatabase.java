@@ -198,10 +198,14 @@ private static class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(EMPLOYER_CREATE);
+	
 		db.execSQL(WORKEVENT_CREATE);
 		db.execSQL(SALERY_CREATE);
 		db.execSQL(OB_CREATE);
-
+		Log.i("Employercreat", EMPLOYER_CREATE);
+		Log.i("workeventcreate", WORKEVENT_CREATE);
+		Log.i("salerycreate", SALERY_CREATE);
+		Log.i("OBcreate", OB_CREATE);
 	}
 
 
